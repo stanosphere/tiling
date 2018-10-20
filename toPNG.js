@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 const toPNG = (canvas, name) => {
-  const path = `${__dirname}/${name}.png`
+  const path = `${__dirname}/pictures/${name}.png`
   const out = fs.createWriteStream(path)
   const stream = canvas.pngStream()
 
