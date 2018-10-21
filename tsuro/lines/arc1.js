@@ -1,6 +1,8 @@
+const golden = require("./golden")
+
 // case of small arcs at corners
 const arc1 = (x, y, width) => ctx => pair => {
-  const r = width / 3
+  const r = width * (1 - 1 / golden)
   if (pair === '18') {
     // top left
     ctx.moveTo(x + r, y)

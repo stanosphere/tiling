@@ -1,14 +1,16 @@
-// points :: Number -> {[Number]}
+const golden = require('./golden')
+
+// getCoords :: Number -> {[Number]}
 const getCoords = width => index =>
   ({
-    '1': [width / 3, 0],
-    '2': [(2 * width) / 3, 0],
-    '3': [width, width / 3],
-    '4': [width, (2 * width) / 3],
-    '5': [(2 * width) / 3, width],
-    '6': [width / 3, width],
-    '7': [0, (2 * width) / 3],
-    '8': [0, width / 3],
+    '1': [width * (1 - 1 / golden), 0],
+    '2': [width / golden, 0],
+    '3': [width, width * (1 - 1 / golden)],
+    '4': [width, width / golden],
+    '5': [width / golden, width],
+    '6': [width * (1 - 1 / golden), width],
+    '7': [0, width / golden],
+    '8': [0, width * (1 - 1 / golden)],
   }[index])
 
 module.exports = getCoords

@@ -1,6 +1,8 @@
+const golden = require("./golden")
+
 // case of large arcs at corners
-const arc1 = (x, y, width) => ctx => pair => {
-  const r = (2 * width) / 3
+const arc2 = (x, y, width) => ctx => pair => {
+  const r = width / golden
   if (pair === '27') {
     // top left
     ctx.moveTo(x + r, y)
@@ -26,4 +28,4 @@ const arc1 = (x, y, width) => ctx => pair => {
   }
 }
 
-module.exports = arc1
+module.exports = arc2
