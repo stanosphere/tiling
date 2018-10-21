@@ -1,9 +1,8 @@
 const Canvas = require('canvas')
-const concentric = require('./primitives/concentric')
 const fillBackground = require('./primitives/fillBackgound')
 const setLineStyle = require('./primitives/lineStyle')
-const arcTile = require('./tsuro/tiles/fourArcs')
-const lineTile = require('./tsuro/tiles/fourLines')
+const arcTile = require('./tsuro/tiles/four-fold-symmetry/fourArcs')
+const lineTile = require('./tsuro/tiles/four-fold-symmetry/fourLines')
 const squarelattice = require('./tsuro/squareLattice')
 
 const draw = () => {

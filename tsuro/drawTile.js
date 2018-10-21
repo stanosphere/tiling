@@ -1,5 +1,14 @@
-const squareTile = (x, y, width) => ctx => {
-  const r = width / 3
+const { getlineType } = require('./getLineType')
+const drawLine = require('./lines/index')
+const getCoords = require("./getCoords")
+
+
+
+const drawTile = portList => (x, y, width) => ctx => {
+  portList.forEach(pair => {
+    const points = pair.map(getCoords(width))
+    const lineType = getlineType(pair)
+  })
   // draw
   ctx.beginPath()
   ctx.moveTo(x + r, y)
@@ -19,4 +28,4 @@ const squareTile = (x, y, width) => ctx => {
   ctx.stroke()
 }
 
-module.exports = squareTile
+module.exports = drawTile

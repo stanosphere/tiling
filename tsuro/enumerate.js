@@ -77,8 +77,12 @@ const removeRotations = arr => {
   return res
 }
 
-flow([
-  getPermutations(toSortedPairs),
-  getUniqueArrays,
-  removeRotations,
-])([1, 2, 3, 4, 5, 6, 7, 8])
+console.log(
+  flow([
+    getPermutations(toSortedPairs),
+    getUniqueArrays,
+    removeRotations,
+  ])([1, 2, 3, 4, 5, 6, 7, 8]).filter(
+    x => getAllRotations(x).length === 1
+  )
+)

@@ -1,6 +1,6 @@
 const { toPNG } = require('./toPNG')
 const drawings = require('./draw')
 
-for (let i = 0; i < 20; i++) {
-  toPNG(drawings.basic(), `circles_${i}`)
+for (let i = 1; i < 21; i++) {
+  toPNG(drawings.basic(), `random_${i}`)
 }
