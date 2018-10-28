@@ -1,0 +1,1 @@
+module.exports = 1 / Math.sqrt(2)
