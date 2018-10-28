@@ -4,10 +4,17 @@ const setLineStyle = require('./primitives/lineStyle')
 const smallArcTile = require('./tsuro/tiles/four-fold-symmetry/smallCornerArcs')
 const largeArcTile = require('./tsuro/tiles/four-fold-symmetry/largeCornerArcs')
 const edgeArcTile = require('./tsuro/tiles/four-fold-symmetry/edgeArcs')
+const allCubicBézierTile = require('./tsuro/tiles/four-fold-symmetry/allCubicBézier')
 const lineTile = require('./tsuro/tiles/four-fold-symmetry/fourLines')
 const squarelattice = require('./tsuro/squareLattice')
 
-const drawFunctions = [smallArcTile, largeArcTile, lineTile,edgeArcTile]
+const drawFunctions = [
+  smallArcTile,
+  largeArcTile,
+  lineTile,
+  edgeArcTile,
+  allCubicBézierTile
+]
 
 // getRandomEntry :: [a] -> a
 const getRandomEntry = arr =>
@@ -15,7 +22,7 @@ const getRandomEntry = arr =>
 
 const draw = () => {
   const canvasWidth = 900
-  const N = 10
+  const N = 6
 
   const canvas = new Canvas(canvasWidth, canvasWidth)
   const ctx = canvas.getContext('2d')
