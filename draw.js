@@ -9,10 +9,10 @@ const lineTile = require('./tsuro/tiles/four-fold-symmetry/fourLines')
 const squarelattice = require('./tsuro/squareLattice')
 
 const drawFunctions = [
-  smallArcTile,
-  largeArcTile,
-  lineTile,
-  edgeArcTile,
+  // smallArcTile,
+  // largeArcTile,
+  // lineTile,
+  // edgeArcTile,
   allCubicBézierTile
 ]
 
@@ -22,7 +22,7 @@ const getRandomEntry = arr =>
 
 const draw = () => {
   const canvasWidth = 900
-  const N = 6
+  const N = 1
 
   const canvas = new Canvas(canvasWidth, canvasWidth)
   const ctx = canvas.getContext('2d')
