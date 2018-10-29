@@ -11,7 +11,7 @@ const getRandomEntry = arr =>
 
 const draw = () => {
   const canvasWidth = 900
-  const N = 4
+  const N = 20
 
   const canvas = new Canvas(canvasWidth, canvasWidth)
   const ctx = canvas.getContext('2d')
