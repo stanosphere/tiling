@@ -1,11 +1,9 @@
-const cubicBézier = require('../../lines/quadraticBézier')
+const drawLine = require('../../lines/index')
 
 const squareTile = (x, y, width) => ctx => {
-  ctx.beginPath()
   ;['17', '28', '35', '46'].forEach(
-    cubicBézier(x, y, width)(ctx)
+    drawLine(x, y, width)(ctx)
   )
-  ctx.stroke()
 }
 
 module.exports = squareTile

@@ -1,5 +1,5 @@
 const setLineStyle = ctx => (colour, lineWidth) => {
-  ctx.strokeStye = colour
+  ctx.strokeStyle = colour
   ctx.lineWidth = lineWidth
 }
 
