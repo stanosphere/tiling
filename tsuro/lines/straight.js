@@ -1,6 +1,6 @@
 const getCoords = require('./getCoords')
 
-const straight =  (x, y, width) => ctx => pair =>{
+const straight = (x, y, width) => (ctx) => (pair) => {
   const [[x0, y0], [x1, y1]] = pair
     .split('')
     .map(getCoords(width))

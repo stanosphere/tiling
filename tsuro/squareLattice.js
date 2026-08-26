@@ -1,4 +1,4 @@
-const squareLatice = (tile, tileWidth, n) => ctx => {
+const squareLattice = (tile, tileWidth, n) => (ctx) => {
   ctx.beginPath()
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
@@ -8,4 +8,4 @@ const squareLatice = (tile, tileWidth, n) => ctx => {
   ctx.stroke()
 }
 
-module.exports = squareLatice
+module.exports = squareLattice

@@ -5,7 +5,7 @@ const beta = 1 / 2
 // this was useful:
 // http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html
 
-const cubicBézier = (x, y, width) => ctx => pair => {
+const cubicBézier = (x, y, width) => (ctx) => (pair) => {
   const [[x0, y0], [x1, y1]] = pair
     .split('')
     .map(getCoords(width))

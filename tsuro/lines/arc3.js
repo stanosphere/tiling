@@ -1,7 +1,7 @@
 const alpha = require('./alpha')
 
 // case of arcs on edges
-const arc3 = (x, y, width) => ctx => pair => {
+const arc3 = (x, y, width) => (ctx) => (pair) => {
   const r = width * alpha - width / 2
   if (pair === '12') {
     // top
@@ -20,7 +20,7 @@ const arc3 = (x, y, width) => ctx => pair => {
       true
     )
   } else if (pair === '56') {
-    // botom
+    // bottom
     ctx.moveTo(x + width / 2 - r, y + width)
     ctx.arc(
       x + width / 2,

@@ -15,7 +15,7 @@ const {
   QUAD_BEZ,
 } = require('./pointsToLineType')
 
-drawLine = (x, y, width) => ctx => pair => {
+const drawLine = (x, y, width) => (ctx) => (pair) => {
   const lineType = pairsToTypes(pair)
   let drawer
 

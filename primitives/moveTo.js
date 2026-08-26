@@ -1,4 +1,4 @@
-const moveTo = ctx => (x, y) => {
+const moveTo = (ctx) => (x, y) => {
   ctx.moveTo(x, y)
 }
 

@@ -4,14 +4,16 @@
   "description": "my first ever drawing thing",
   "main": "index.js",
   "scripts": {
+    "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Paul Stanford",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^1.6.13",
-    "lodash": "^4.17.11",
-    "node-gyp": "^3.8.0"
+    "canvas": "^3.2.3"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.9.6"
+  }
 }

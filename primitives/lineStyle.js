@@ -1,4 +1,4 @@
-const setLineStyle = ctx => (colour, lineWidth) => {
+const setLineStyle = (ctx) => (colour, lineWidth) => {
   ctx.strokeStyle = colour
   ctx.lineWidth = lineWidth
 }

@@ -1,6 +1,6 @@
 const drawLine = require('../../lines/index')
 
-const squareTile = (x, y, width) => ctx => {
+const squareTile = (x, y, width) => (ctx) => {
   ;['17', '28', '35', '46'].forEach(
     drawLine(x, y, width)(ctx)
   )

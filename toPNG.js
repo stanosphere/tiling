@@ -1,17 +1,11 @@
 const fs = require('fs')
 
 const toPNG = (canvas, name) => {
-  const path = `${__dirname}/pictures/${name}.png`
-  const out = fs.createWriteStream(path)
-  const stream = canvas.pngStream()
-
-  stream.on('data', chunk => {
-    out.write(chunk)
-  })
-
-  stream.on('end', () => {
-    console.log(`saved png at ${path}`)
-  })
+  const dir = `${__dirname}/pictures`
+  const path = `${dir}/${name}.png`
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(path, canvas.toBuffer('image/png'))
+  console.log(`saved png at ${path}`)
 }
 
 module.exports = { toPNG }

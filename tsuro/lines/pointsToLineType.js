@@ -7,7 +7,7 @@ const CUBIC_BEZ = 5
 const QUAD_BEZ = 6
 
 // getAllPairs :: [Number] -> [String]
-const getAllPairs = arr => {
+const getAllPairs = (arr) => {
   const res = []
   for (let i = 0; i < arr.length - 1; i++) {
     for (let j = i + 1; j < arr.length; j++) {
@@ -18,7 +18,7 @@ const getAllPairs = arr => {
 }
 
 // pairsToTypes :: [String] -> Number
-const pairsToTypes = pair => {
+const pairsToTypes = (pair) => {
   if (['18', '23', '45', '67'].includes(pair)) return ARC_1
   if (['14', '27', '36', '58'].includes(pair)) return ARC_2
   if (['12', '34', '56', '78'].includes(pair)) return ARC_3
