@@ -5,32 +5,24 @@ const flow = (fs) => (x) => fs.reduce((res, f) => f(res), x)
 const getUniqueArrays = (arr) =>
   [...new Set(arr.map(JSON.stringify))].map(JSON.parse)
 
-// toSortedPairs [Number] -> [[Number]]
-const toSortedPairs = (arr) => {
-  const res = []
-  for (let i = 0; i < arr.length / 2; i++)
-    res.push(arr.slice(i * 2, (i + 1) * 2).sort())
-  return res.sort((a, b) => a[0] - b[0])
-}
+// allPairings :: [Number] -> [[[Number]]]
+const allPairings = (ports) => {
+  if (ports.length === 0) return [[]]
 
-// permutator :: ([Number] -> [Number]) -> [Number] -> [[Number]]
-const getPermutations = (f) => (inputArr) => {
-  const result = []
+  const [lowestPort, ...pairingChoices] = ports
 
-  const construct = (arr, m = []) => {
-    if (arr.length === 0) {
-      result.push(f(m))
-    } else {
-      for (let i = 0; i < arr.length; i++) {
-        const curr = arr.slice(0)
-        const next = curr.splice(i, 1)
-        construct(curr.slice(), m.concat(next))
-      }
-    }
-  }
-  construct(inputArr)
+  return pairingChoices.flatMap((pairedPort) => {
+    const unpairedPorts = pairingChoices.filter(
+      (p) => p !== pairedPort
+    )
 
-  return result
+    return allPairings(unpairedPorts).map(
+      (matchedPorts) => [
+        [lowestPort, pairedPort],
+        ...matchedPorts,
+      ]
+    )
+  })
 }
 
 // rotate :: [[Number]] -> [[Number]]
@@ -81,17 +73,18 @@ const removeRotations = (arr) => {
 const toNames = (tiles) =>
   tiles.map((pairs) => pairs.map((pair) => pair.join('')))
 
-const allTiles = flow([
-  getPermutations(toSortedPairs),
-  getUniqueArrays,
-  toNames,
-])([1, 2, 3, 4, 5, 6, 7, 8])
+const allTiles = flow([allPairings, toNames])([
+  1, 2, 3, 4, 5, 6, 7, 8,
+])
 
 const allTilesUpToRotation = flow([
-  getPermutations(toSortedPairs),
-  getUniqueArrays,
+  allPairings,
   removeRotations,
   toNames,
 ])([1, 2, 3, 4, 5, 6, 7, 8])
 
-module.exports = { allTiles, allTilesUpToRotation }
+module.exports = {
+  allPairings,
+  allTiles,
+  allTilesUpToRotation,
+}
