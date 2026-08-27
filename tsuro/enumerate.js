@@ -77,11 +77,21 @@ const removeRotations = (arr) => {
   return res
 }
 
+// toNames :: [[[Number]]] -> [[String]]
+const toNames = (tiles) =>
+  tiles.map((pairs) => pairs.map((pair) => pair.join('')))
+
 const allTiles = flow([
   getPermutations(toSortedPairs),
   getUniqueArrays,
-  // removeRotations,
-  (x) => x.map((y) => y.map((z) => z.join(''))),
+  toNames,
 ])([1, 2, 3, 4, 5, 6, 7, 8])
 
-module.exports = allTiles
+const allTilesUpToRotation = flow([
+  getPermutations(toSortedPairs),
+  getUniqueArrays,
+  removeRotations,
+  toNames,
+])([1, 2, 3, 4, 5, 6, 7, 8])
+
+module.exports = { allTiles, allTilesUpToRotation }
