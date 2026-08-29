@@ -7,13 +7,13 @@ const { allTiles } = require('./tsuro/enumerate')
 // getRandomEntry :: [a] -> a
 const getRandomEntry = (arr) => arr[Math.floor(arr.length * Math.random())]
 
-const drawGrid = (canvasWidth, gridSideLength, constants) => {
+const drawGrid = (canvasWidth, gridSideLength, constants, palette) => {
   const canvas = createCanvas(canvasWidth, canvasWidth)
   const ctx = canvas.getContext('2d')
 
-  fillBackground(canvas, ctx)('blue')
+  fillBackground(canvas, ctx)(palette.background)
 
-  const f = () => drawTile(constants)(getRandomEntry(allTiles))
+  const f = () => drawTile(constants, palette)(getRandomEntry(allTiles))
 
   squareLattice(f, canvasWidth / gridSideLength, gridSideLength)(ctx)
   return canvas
