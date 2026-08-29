@@ -16,7 +16,7 @@ const quadraticBézier =
     if (pair === '13' || pair === '24') {
       cp1 = {
         x: x + x0,
-        y: y + y0 + gamma * width,
+        y: y + y0 - gamma * width,
       }
       cp2 = {
         x: x + x1 - gamma * width,
@@ -25,7 +25,7 @@ const quadraticBézier =
     } else if (pair === '57' || pair === '68') {
       cp1 = {
         x: x + x0,
-        y: y + y0 - gamma * width,
+        y: y + y0 + gamma * width,
       }
       cp2 = {
         x: x + x1 + gamma * width,
@@ -34,7 +34,7 @@ const quadraticBézier =
     } else if (pair === '17' || pair === '28') {
       cp1 = {
         x: x + x0,
-        y: y + y0 + gamma * width,
+        y: y + y0 - gamma * width,
       }
       cp2 = {
         x: x + x1 + gamma * width,
@@ -47,7 +47,7 @@ const quadraticBézier =
       }
       cp2 = {
         x: x + x1,
-        y: y + y1 - gamma * width,
+        y: y + y1 + gamma * width,
       }
     }
     ctx.moveTo(x + x0, y + y0)

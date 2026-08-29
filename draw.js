@@ -2,7 +2,7 @@ const { createCanvas } = require('canvas')
 const fillBackground = require('./primitives/fillBackground')
 const squareLattice = require('./tsuro/squareLattice')
 const drawTile = require('./tsuro/drawTile')
-const allTiles = require('./tsuro/enumerate')
+const { allTiles } = require('./tsuro/enumerate')
 
 // getRandomEntry :: [a] -> a
 const getRandomEntry = (arr) =>
