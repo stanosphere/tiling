@@ -11,14 +11,14 @@ const cubicBézier = (x, y, width) => (ctx) => (pair) => {
     .map(getCoords(width))
   let cp1, cp2
   if (pair === '15' || pair === '26') {
-    // top to bottom
+    // bottom to top
     cp1 = {
       x: x + x0,
-      y: y + y0 + beta * width,
+      y: y + y0 - beta * width,
     }
     cp2 = {
       x: x + x1,
-      y: y + y1 - beta * width,
+      y: y + y1 + beta * width,
     }
   } else if (pair === '37' || pair === '48') {
     cp1 = {
