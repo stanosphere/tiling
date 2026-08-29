@@ -22,10 +22,8 @@ const pairsToTypes = (pair) => {
   if (['18', '23', '45', '67'].includes(pair)) return ARC_1
   if (['14', '27', '36', '58'].includes(pair)) return ARC_2
   if (['12', '34', '56', '78'].includes(pair)) return ARC_3
-  if (['16', '25', '38', '47'].includes(pair))
-    return STRAIGHT
-  if (['15', '26', '37', '48'].includes(pair))
-    return CUBIC_BEZ
+  if (['16', '25', '38', '47'].includes(pair)) return STRAIGHT
+  if (['15', '26', '37', '48'].includes(pair)) return CUBIC_BEZ
   return QUAD_BEZ
 }
 

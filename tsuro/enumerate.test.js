@@ -1,24 +1,17 @@
 const { test } = require('node:test')
 const assert = require('node:assert/strict')
 
-const {
-  allPairings,
-  allTiles,
-  allTilesUpToRotation,
-} = require('./enumerate')
+const { allPairings, allTiles, allTilesUpToRotation } = require('./enumerate')
 
 const allPorts = new Set([1, 2, 3, 4, 5, 6, 7, 8])
 
 // getPortSet :: Tile -> Set Number
 const getPortSet = (tile) =>
-  new Set(
-    tile.flatMap((pair) => pair.split('').map(Number))
-  )
+  new Set(tile.flatMap((pair) => pair.split('').map(Number)))
 
 // checkPerfectMatchings :: [Tile] -> ()
 const checkPerfectMatchings = (tiles) => {
-  for (const tile of tiles)
-    assert.deepEqual(getPortSet(tile), allPorts)
+  for (const tile of tiles) assert.deepEqual(getPortSet(tile), allPorts)
 }
 
 test('allPairings pairs 2 ports the only possible way', () => {

@@ -1,7 +1,6 @@
-const alpha = require('./alpha')
-
 // case of small arcs at corners
-const arc1 = (x, y, width) => (ctx) => (pair) => {
+const arc1 = (constants) => (x, y, width) => (ctx) => (pair) => {
+  const { alpha } = constants
   const r = width * (1 - alpha)
   if (pair === '18') {
     // bottom left
@@ -10,13 +9,7 @@ const arc1 = (x, y, width) => (ctx) => (pair) => {
   } else if (pair === '23') {
     // bottom right
     ctx.moveTo(x + width - r, y + width)
-    ctx.arc(
-      x + width,
-      y + width,
-      r,
-      Math.PI,
-      (3 * Math.PI) / 2
-    )
+    ctx.arc(x + width, y + width, r, Math.PI, (3 * Math.PI) / 2)
   } else if (pair === '45') {
     // top right
     ctx.moveTo(x + width, y + r)

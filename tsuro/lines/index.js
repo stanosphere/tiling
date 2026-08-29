@@ -15,7 +15,7 @@ const {
   QUAD_BEZ,
 } = require('./pointsToLineType')
 
-const drawLine = (x, y, width) => (ctx) => (pair) => {
+const drawLine = (constants) => (x, y, width) => (ctx) => (pair) => {
   const lineType = pairsToTypes(pair)
   let drawer
 
@@ -26,7 +26,7 @@ const drawLine = (x, y, width) => (ctx) => (pair) => {
   else if (lineType === QUAD_BEZ) drawer = quadraticBézier
   else if (lineType === CUBIC_BEZ) drawer = cubicBézier
 
-  drawer(x, y, width)(ctx)(pair)
+  drawer(constants)(x, y, width)(ctx)(pair)
 }
 
 module.exports = drawLine

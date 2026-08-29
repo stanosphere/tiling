@@ -24,11 +24,9 @@ const allPairings = (ports) => {
   const pairWith = (pairedPort) => {
     const pair = [lowestPort, pairedPort]
 
-    return flow([
-      without([pairedPort]),
-      allPairings,
-      map(concat([pair])),
-    ])(pairingChoices)
+    return flow([without([pairedPort]), allPairings, map(concat([pair]))])(
+      pairingChoices
+    )
   }
 
   return flatMap(pairWith, pairingChoices)
@@ -46,28 +44,18 @@ const toName = flow([toPairStrings, join('-')])
 const rotatePort = (x) => (x + 2 > 8 ? x - 6 : x + 2)
 
 // normalise :: [[Number]] -> [[Number]]
-const normalise = flow([
-  map(sortBy(identity)),
-  sortBy(head),
-])
+const normalise = flow([map(sortBy(identity)), sortBy(head)])
 
 // rotate :: [[Number]] -> [[Number]]
 const rotate = flow([map(map(rotatePort)), normalise])
 
 // getAllRotations :: [[Number]] -> [[[Number]]]
-const getAllRotations = flow([
-  normalise,
-  iterate(rotate, 4),
-])
+const getAllRotations = flow([normalise, iterate(rotate, 4)])
 
 // this considers all possible rotations of a tile and we simply choose
 // whatever is lexicographically first as the canonical name
 // canonicalName :: [[Number]] -> String
-const canonicalName = flow([
-  getAllRotations,
-  map(toName),
-  min,
-])
+const canonicalName = flow([getAllRotations, map(toName), min])
 
 // removeRotations :: [[[Number]]] -> [[[Number]]]
 const removeRotations = uniqBy(canonicalName)
