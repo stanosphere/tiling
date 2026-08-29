@@ -6,6 +6,7 @@ const goldOnBrown = {
   background: '#211D18',
   line: '#C99938',
   halo: '#211D18',
+  table: '#12100C',
 }
 
 module.exports = { goldOnBrown }

@@ -9,6 +9,7 @@ const {
   map,
   min,
   sortBy,
+  split,
   uniqBy,
   without,
 } = require('lodash/fp')
@@ -36,6 +37,10 @@ const allPairings = (ports) => {
 // toPairStrings :: [[Number]] -> [String]
 const toPairStrings = map(join(''))
 
+// e.g. ['12', '34'] -> [[1, 2], [3, 4]]
+// fromPairStrings :: [String] -> [[Number]]
+const fromPairStrings = map(flow([split(''), map(Number)]))
+
 // e.g. [[1, 2], [3, 4]] -> '12-34'
 // toName :: [[Number]] -> String
 const toName = flow([toPairStrings, join('-')])
@@ -51,6 +56,13 @@ const rotate = flow([map(map(rotatePort)), normalise])
 
 // getAllRotations :: [[Number]] -> [[[Number]]]
 const getAllRotations = flow([normalise, iterate(rotate, 4)])
+
+// allRotationsOf :: [String] -> [[String]]
+const allRotationsOf = flow([
+  fromPairStrings,
+  getAllRotations,
+  map(toPairStrings),
+])
 
 // this considers all possible rotations of a tile and we simply choose
 // whatever is lexicographically first as the canonical name
@@ -72,6 +84,7 @@ const allTilesUpToRotation = flow([
 
 module.exports = {
   allPairings,
+  allRotationsOf,
   allTiles,
   allTilesUpToRotation,
 }
