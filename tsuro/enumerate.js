@@ -1,86 +1,85 @@
-// flow :: [a -> b, b ->c, ...x -> y] -> a -> y
-const flow = (fs) => (x) => fs.reduce((res, f) => f(res), x)
+const {
+  concat,
+  flatMap,
+  flow,
+  head,
+  identity,
+  isEmpty,
+  join,
+  map,
+  min,
+  sortBy,
+  uniqBy,
+  without,
+} = require('lodash/fp')
 
-// getUniqueArrays :: [[Number]] -> [[Number]]
-const getUniqueArrays = (arr) =>
-  [...new Set(arr.map(JSON.stringify))].map(JSON.parse)
+const iterate = require('../iterate')
 
 // allPairings :: [Number] -> [[[Number]]]
 const allPairings = (ports) => {
-  if (ports.length === 0) return [[]]
+  if (isEmpty(ports)) return [[]]
 
   const [lowestPort, ...pairingChoices] = ports
 
-  return pairingChoices.flatMap((pairedPort) => {
-    const unpairedPorts = pairingChoices.filter(
-      (p) => p !== pairedPort
-    )
+  const pairWith = (pairedPort) => {
+    const pair = [lowestPort, pairedPort]
 
-    return allPairings(unpairedPorts).map(
-      (matchedPorts) => [
-        [lowestPort, pairedPort],
-        ...matchedPorts,
-      ]
-    )
-  })
+    return flow([
+      without([pairedPort]),
+      allPairings,
+      map(concat([pair])),
+    ])(pairingChoices)
+  }
+
+  return flatMap(pairWith, pairingChoices)
 }
+
+// e.g. [[1, 2], [3, 4]] -> ['12', '34']
+// toPairStrings :: [[Number]] -> [String]
+const toPairStrings = map(join(''))
+
+// e.g. [[1, 2], [3, 4]] -> '12-34'
+// toName :: [[Number]] -> String
+const toName = flow([toPairStrings, join('-')])
+
+// rotatePort :: Number -> Number
+const rotatePort = (x) => (x + 2 > 8 ? x - 6 : x + 2)
+
+// normalise :: [[Number]] -> [[Number]]
+const normalise = flow([
+  map(sortBy(identity)),
+  sortBy(head),
+])
 
 // rotate :: [[Number]] -> [[Number]]
-const rotate = (arr) =>
-  arr
-    .map((sub) =>
-      sub.map((x) => (x + 2 > 8 ? x - 6 : x + 2)).sort()
-    )
-    .sort((a, b) => a[0] - b[0])
+const rotate = flow([map(map(rotatePort)), normalise])
 
-const getAllRotations = (arr) => {
-  const res = [arr]
-  let curr = arr
-  for (let i = 0; i < 3; i++) {
-    curr = rotate(curr)
-    res.push(curr)
-  }
-  return getUniqueArrays(res)
-}
+// getAllRotations :: [[Number]] -> [[[Number]]]
+const getAllRotations = flow([
+  normalise,
+  iterate(rotate, 4),
+])
 
-// intersection :: ([String] [String]) -> [String]
-const intersection = (a, b) =>
-  a.filter((v) => b.indexOf(v) !== -1)
+// this considers all possible rotations of a tile and we simply choose
+// whatever is lexicographically first as the canonical name
+// canonicalName :: [[Number]] -> String
+const canonicalName = flow([
+  getAllRotations,
+  map(toName),
+  min,
+])
 
-// intersection :: ([String] [String]) -> Boolean
-const doesIntersect = (a, b) =>
-  intersection(a, b).length !== 0
+// removeRotations :: [[[Number]]] -> [[[Number]]]
+const removeRotations = uniqBy(canonicalName)
 
-// removeRotations :: [[Number]] -> [[Number]]
-const removeRotations = (arr) => {
-  const res = []
-  const lookup = []
-  arr.forEach((config) => {
-    if (
-      !doesIntersect(
-        getAllRotations(config).map(JSON.stringify),
-        lookup
-      )
-    ) {
-      res.push(config)
-      lookup.push(JSON.stringify(config))
-    }
-  })
-  return res
-}
-
-// toNames :: [[[Number]]] -> [[String]]
-const toNames = (tiles) =>
-  tiles.map((pairs) => pairs.map((pair) => pair.join('')))
-
-const allTiles = flow([allPairings, toNames])([
+const allTiles = flow([allPairings, map(toPairStrings)])([
   1, 2, 3, 4, 5, 6, 7, 8,
 ])
 
 const allTilesUpToRotation = flow([
   allPairings,
   removeRotations,
-  toNames,
+  map(toPairStrings),
 ])([1, 2, 3, 4, 5, 6, 7, 8])
 
 module.exports = {
