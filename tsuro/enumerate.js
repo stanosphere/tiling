@@ -7,7 +7,7 @@ const {
   isEmpty,
   join,
   map,
-  min,
+  minBy,
   sortBy,
   split,
   uniqBy,
@@ -33,9 +33,13 @@ const allPairings = (ports) => {
   return flatMap(pairWith, pairingChoices)
 }
 
-// e.g. [[1, 2], [3, 4]] -> ['12', '34']
+// e.g. [[6,5],[3,4],[7,8],[2,1]] -> [[1,2],[3,4],[5,6],[7,8]]
+// normalise :: [[Number]] -> [[Number]]
+const normalise = flow([map(sortBy(identity)), sortBy(head)])
+
+// e.g. [[3, 4], [2, 1]] -> ['12', '34']
 // toPairStrings :: [[Number]] -> [String]
-const toPairStrings = map(join(''))
+const toPairStrings = flow([normalise, map(join(''))])
 
 // e.g. ['12', '34'] -> [[1, 2], [3, 4]]
 // fromPairStrings :: [String] -> [[Number]]
@@ -47,9 +51,6 @@ const toName = flow([toPairStrings, join('-')])
 
 // rotatePort :: Number -> Number
 const rotatePort = (x) => (x + 2 > 8 ? x - 6 : x + 2)
-
-// normalise :: [[Number]] -> [[Number]]
-const normalise = flow([map(sortBy(identity)), sortBy(head)])
 
 // rotate :: [[Number]] -> [[Number]]
 const rotate = flow([map(map(rotatePort)), normalise])
@@ -65,12 +66,12 @@ const allRotationsOf = flow([
 ])
 
 // this considers all possible rotations of a tile and we simply choose
-// whatever is lexicographically first as the canonical name
-// canonicalName :: [[Number]] -> String
-const canonicalName = flow([getAllRotations, map(toName), min])
+// whichever is lexicographically first as the canonical form
+// canonicalForm :: [[Number]] -> [[Number]]
+const canonicalForm = flow([getAllRotations, minBy(toName)])
 
 // removeRotations :: [[[Number]]] -> [[[Number]]]
-const removeRotations = uniqBy(canonicalName)
+const removeRotations = flow([map(canonicalForm), uniqBy(toName)])
 
 const allTiles = flow([allPairings, map(toPairStrings)])([
   1, 2, 3, 4, 5, 6, 7, 8,
